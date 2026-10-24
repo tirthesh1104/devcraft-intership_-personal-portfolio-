@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111827" />
+  <title>Pulse Chat — Real-time Chat</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">✦</div>
+        <div><strong>Pulse Chat</strong><span>Real-time community</span></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="section-heading"><span>ONLINE NOW</span><span id="online-count" class="count">0</span></div>
+        <ul id="user-list" class="user-list"><li class="muted">Connecting…</li></ul>
+      </div>
+      <div class="sidebar-note"><span class="live-dot"></span> Messages update instantly</div>
+      <div class="profile">
+        <div id="avatar" class="avatar">G</div>
+        <div class="profile-text"><strong id="current-user">Guest</strong><span><i class="status-dot"></i> Active</span></div>
+        <button id="change-name" class="icon-button" title="Change display name" aria-label="Change display name">↗</button>
+      </div>
+    </aside>
+
+    <section class="chat-panel">
+      <header class="chat-header">
+        <div class="channel-icon">#</div>
+        <div class="channel-title"><h1>General chat</h1><p>Say hello to everyone in the room</p></div>
+        <div class="header-status"><span class="live-dot"></span><span>LIVE</span></div>
+      </header>
+
+      <div id="welcome" class="welcome">
+        <div class="welcome-symbol">✦</div>
+        <h2>Good conversations start here.</h2>
+        <p>Send a message and connect with people in real time.</p>
+      </div>
+      <div id="messages" class="messages" aria-live="polite" aria-label="Chat messages"></div>
+      <div id="typing-indicator" class="typing-indicator" aria-live="polite"></div>
+
+      <form id="message-form" class="composer">
+        <button type="button" id="emoji-button" class="emoji-button" title="Add a smile">☺</button>
+        <input id="message-input" type="text" maxlength="500" autocomplete="off" placeholder="Write a message…" aria-label="Write a message" />
+        <span id="char-count" class="char-count">0/500</span>
+        <button type="submit" class="send-button" aria-label="Send message"><span>Send</span><b>↗</b></button>
+      </form>
+      <div class="composer-hint">Press <kbd>Enter</kbd> to send <span>•</span> Be kind to each other</div>
+    </section>
+  </main>
+
+  <dialog id="name-dialog" class="name-dialog">
+    <form id="name-form" method="dialog">
+      <div class="dialog-symbol">✦</div>
+      <h2>Welcome to Pulse Chat</h2>
+      <p>Choose a display name to join the conversation.</p>
+      <label for="name-input">Display name</label>
+      <input id="name-input" type="text" maxlength="24" placeholder="e.g. Tirthesh" required />
+      <button class="join-button" type="submit">Join chat <span>→</span></button>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
