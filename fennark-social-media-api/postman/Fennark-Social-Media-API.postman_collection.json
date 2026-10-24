@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "Fennark Social Media API",
+    "description": "Register/login, create posts, and like/unlike posts. Set collection variables token and postId after registration and post creation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "token", "value": "" },
+    { "key": "postId", "value": "" }
+  ],
+  "item": [
+    { "name": "Health Check", "request": { "method": "GET", "url": "{{baseUrl}}/api/health" } },
+    { "name": "Register", "request": {
+      "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": { "mode": "raw", "raw": "{\n  \"name\": \"Demo User\",\n  \"email\": \"demo@example.com\",\n  \"password\": \"StrongPass123\"\n}" },
+      "url": "{{baseUrl}}/api/auth/register"
+    } },
+    { "name": "Login", "request": {
+      "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+      "body": { "mode": "raw", "raw": "{\n  \"email\": \"demo@example.com\",\n  \"password\": \"StrongPass123\"\n}" },
+      "url": "{{baseUrl}}/api/auth/login"
+    } },
+    { "name": "Current User (Bearer Token)", "request": {
+      "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+      "url": "{{baseUrl}}/api/auth/me"
+    } },
+    { "name": "Create Post (Bearer Token)", "request": {
+      "method": "POST", "header": [
+        { "key": "Content-Type", "value": "application/json" },
+        { "key": "Authorization", "value": "Bearer {{token}}" }
+      ],
+      "body": { "mode": "raw", "raw": "{\n  \"title\": \"My first post\",\n  \"content\": \"Hello! This is my first social media post.\"\n}" },
+      "url": "{{baseUrl}}/api/posts"
+    } },
+    { "name": "List Posts", "request": { "method": "GET", "url": "{{baseUrl}}/api/posts" } },
+    { "name": "Get Post by ID", "request": { "method": "GET", "url": "{{baseUrl}}/api/posts/{{postId}}" } },
+    { "name": "Update Own Post (Bearer Token)", "request": {
+      "method": "PATCH", "header": [
+        { "key": "Content-Type", "value": "application/json" },
+        { "key": "Authorization", "value": "Bearer {{token}}" }
+      ],
+      "body": { "mode": "raw", "raw": "{\n  \"title\": \"Updated post title\"\n}" },
+      "url": "{{baseUrl}}/api/posts/{{postId}}"
+    } },
+    { "name": "Like Post (Bearer Token)", "request": {
+      "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+      "url": "{{baseUrl}}/api/posts/{{postId}}/like"
+    } },
+    { "name": "Unlike Post (Bearer Token)", "request": {
+      "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+      "url": "{{baseUrl}}/api/posts/{{postId}}/like"
+    } },
+    { "name": "Delete Own Post (Bearer Token)", "request": {
+      "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+      "url": "{{baseUrl}}/api/posts/{{postId}}"
+    } }
+  ]
+}
